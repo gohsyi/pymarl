@@ -6,6 +6,14 @@ ENV CUDA_PATH /usr/local/cuda
 ENV CUDA_INCLUDE_PATH /usr/local/cuda/include
 ENV CUDA_LIBRARY_PATH /usr/local/cuda/lib64
 
+# Config apt-get sources
+WORKDIR /etc/apt/
+RUN mv sources.list sources.list.bak
+RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse" >> sources.list
+RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse" >> sources.list
+RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse" >> sources.list
+RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse" >> sources.list
+
 # Ubuntu Packages
 RUN apt-get update -y && apt-get install software-properties-common -y && \
     add-apt-repository -y multiverse && apt-get update -y && apt-get upgrade -y && \
